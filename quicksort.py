@@ -36,7 +36,7 @@ def quicksort(A):
 	
 	return A
 
-#调试用
+#调试用模块
 if __name__ == "__main__":
 	a = [8,9,4,2,6,7,1,3,0]
 	print quicksort(a)
