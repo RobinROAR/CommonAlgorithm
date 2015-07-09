@@ -51,28 +51,62 @@ void  drop(node *head){
 		
 //展示链表，一个指针
 void show(node *head){
+
 	node *p;
 	p = head;
 	while(p!=NULL){
-		printf("num : %d ,data : %d \n", p->num,p->data);
+		printf("num : %d ,data : %d  --> ", p->num,p->data);
 		p = p->next;
 	}
+	printf(" end \n");
+	p = NULL;
 }
 
-//插入链表
-void insert(node *head,int n,int data){
+//插入链表,两个指针，q指向插入节点的前一个节点(如果是第一个需要特殊处理)
+node* insert(node *head,int n){
 	node *p,*q;
-	p = head;
-	int i;
-	for(i=0;i<n;i++){
-		p = p->next;
-	}
-	q = (node*)malloc(sizeof(node));
-	printf("Please input data after node%d: ", n)
-	scanf("%d,%d",&q->num,&q->data)
-	q->next = p->next;
-	p->next = q;
+	q = head;
+	if(n==0) {
+		p = (node*)malloc(sizeof(node));
+		printf("Please input data after node%d: ", n);
+		scanf("%d,%d",&p->num,&p->data);
+		p->next = head;
+		head = p;
+		
+		}else{
+				int i;
+				for(i=0;i<n-1;i++){
+					q = q->next;
+					}
+				p = (node*)malloc(sizeof(node));
+				printf("Please input data after node%d: ", n);
+				scanf("%d,%d",&p->num,&p->data);
+				p->next = q->next;
+				q->next = p;
+		}
+	p = q =NULL;
+	return head;
 }
+
+//删除节点 , 分首节点和非首节点两种情况
+node* del(node *head,int n){
+	node *p,*q;
+	q = head;
+	if(n==1){
+		p = head->next;
+		free(q);
+		head = head->next;
+	}
+		else{
+			for(int i = 1;i< n-1;i++){q = q->next;}
+			p = q->next;
+			q->next = q->next->next;
+			free(p);
+		}
+		
+	p = q = NULL;
+	return head;
+	}		
 	
 	
 int main(){
@@ -81,8 +115,22 @@ int main(){
 	scanf("%d", &n);
 	node *head = create(n);
 	show(head);
-	drop(head);
 	
+	int m;
+	printf("where to insert : ");
+	scanf("%d",&m);
+	
+	head = insert(head,m);
+	show(head);
+	
+	int k;
+	printf("where to del : ");
+	scanf("%d",&k);
+	
+	head = del(head,k);
+	show(head);
+	
+	drop(head);	
 	scanf("%d", &n);
 	return 0;	
 	
