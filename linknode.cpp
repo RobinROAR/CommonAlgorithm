@@ -5,7 +5,7 @@
 typedef struct node{
 	int num;
 	int data;
-	node *next;
+	struct node *next;
 }node;
 
 //建立链表，两个指针，p新建节点，q链接前后节点
@@ -103,6 +103,58 @@ node* del(node *head,int n){
 	return head;
 	}		
 	
+
+//链表求长
+int length(node *head){
+	if(head == NULL){return 0;}
+	
+	int cnt=1;
+	node *p;
+	p = head;
+	while(p->next!=NULL){
+		p = p->next;
+		cnt++;
+	}
+	p = NULL;
+	return cnt;
+}
+	
+
+//链表逆置，两种方法末热，a为标识符，0 为正常，1为递归
+//正常，三个指针o,p,q ,  分别指向前中后，移动前两个
+//递归，两个指针，递归子序列q
+node *reverse(node *head,int a =0){
+	switch(a){
+		case 0:{
+			if(head == NULL or head ->next == NULL) return head;
+			node *o, *p ,*q;
+			o = head;
+			p = head->next;
+			q = NULL;
+			while(p!= NULL){
+				q = p->next;
+				p->next = o;
+				o = p;
+				p = q;
+			}
+			head->next = NULL;
+			head = o;
+			return head;
+		}
+		case 1:{
+			if(head ==NULL or head->next==NULL) return head;
+			node *p,*q;
+			p = head;
+			q = p->next;
+			head = reverse(q,1);
+			q->next = p;
+			p->next = NULL;
+			return head;
+		}
+	}		
+	
+}
+
 	
 int main(){
 	printf("Please input the len of linknode: ");
@@ -124,6 +176,12 @@ int main(){
 	
 	head = del(head,k);
 	show(head);
+	
+	head = reverse(head,1);
+	show(head);
+	
+	int l = length(head);
+	printf("length :  %d \n",l);
 	
 	drop(head);	
 	scanf("%d", &n);
