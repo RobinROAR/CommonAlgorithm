@@ -18,6 +18,7 @@ node *create(int n){
 		if(i==0){
 			q =p;
 			head = p;
+			p->next = NULL;
 			}
 			else{
 				q->next = p;
@@ -31,8 +32,8 @@ node *create(int n){
 //释放链表， 两个指针，q删除释放当前节点，p指向下一个
 void  drop(node *head){
 	node *p,*q;
-	if(head = NULL){printf("No link");exit(0);}
 	p = q =head;
+	if(head = NULL){printf("No link");exit(0);}
 	while(p!=NULL){
 		p=p->next;
 		free(q);
