@@ -8,39 +8,40 @@ typedef struct node{
 	struct node *next;
 }node;
 
-//建立链表，两个指针，p新建节点，q链接前后节点
+//建立链表，两个指针，p新建节点，o为前一个节点
 node *create(int n){
-	node *head,*q,*p;
+	node *head,*o,*p;
 	for(int i=0;i<n;i++){
 		p = (node*)malloc(sizeof(node));
 		printf("Please input node%d : ", i+1);
 		scanf("%d,%d",&p->num,&p->data);
 		if(i==0){
-			q =p;
+			o=p;
 			head = p;
 			p->next = NULL;
 			}
 			else{
-				q->next = p;
+				o->next = p;
 				p->next = NULL;
-				q = p;
+				o = p;
 			}
 		}
 	return head;
+
 }
 
-//释放链表， 两个指针，q删除释放当前节点，p指向下一个
+//释放链表， 两个指针，p为下一个节点，o为要删除的当前节点
 void  drop(node *head){
-	node *p,*q;
-	p = q =head;
+	node *p,*o;
+	o = p =head;
 	if(head = NULL){printf("No link");exit(0);}
 	while(p!=NULL){
 		p=p->next;
-		free(q);
-		q=p;
+		free(o);
+		o=p;
 	}
 	
-	if(p == NULL and q == NULL) printf("drop ok \n") ;
+	if(o == NULL and p == NULL) printf("drop ok \n") ;
 	else printf("wrong");
 	
 }	
@@ -58,49 +59,45 @@ void show(node *head){
 	p = NULL;
 }
 
-//插入链表,两个指针，q指向插入节点的前一个节点(如果是第一个需要特殊处理)
+//插入链表,两个指针，o指向插入节点的前一个节点(如果是第一个需要特殊处理)
 node* insert(node *head,int n){
-	node *p,*q;
-	q = head;
-	if(n==0) {
-		p = (node*)malloc(sizeof(node));
+	node *p,*o;
+	o = head;
+	p = (node*)malloc(sizeof(node));
 		printf("Please input data after node%d: ", n);
 		scanf("%d,%d",&p->num,&p->data);
+	if(n==0) {
 		p->next = head;
 		head = p;
 		
 		}else{
 				int i;
 				for(i=0;i<n-1;i++){
-					q = q->next;
+					o = o->next;
 					}
-				p = (node*)malloc(sizeof(node));
-				printf("Please input data after node%d: ", n);
-				scanf("%d,%d",&p->num,&p->data);
-				p->next = q->next;
-				q->next = p;
+				p->next = o->next;
+				o->next = p;
 		}
-	p = q =NULL;
+	p = o =NULL;
 	return head;
 }
 
-//删除节点 , 分首节点和非首节点两种情况
+//删除节点 , 一个操作指针p， 分首节点和非首节点两种情况
 node* del(node *head,int n){
-	node *p,*q;
-	q = head;
+	node *p;
+	p = head;
 	if(n==1){
-		p = head->next;
-		free(q);
 		head = head->next;
+		free(p);
 	}
 		else{
-			for(int i = 1;i< n-1;i++){q = q->next;}
-			p = q->next;
-			q->next = q->next->next;
+			for(int i = 2;i< n;i++){p = p->next;}
+			p->next = p->next->next;
+			p = p->next;
 			free(p);
 		}
 		
-	p = q = NULL;
+	p  = NULL;
 	return head;
 	}		
 	
@@ -121,7 +118,7 @@ int length(node *head){
 }
 	
 
-//链表逆置，两种方法末热，a为标识符，0 为正常，1为递归
+//链表逆置，两种方法，a为标识符，0 为正常，1为递归
 //正常，三个指针o,p,q ,  分别指向前中后，移动前两个
 //递归，两个指针，递归子序列q
 node *reverse(node *head,int a =0){
