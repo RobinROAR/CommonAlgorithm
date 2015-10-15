@@ -1,6 +1,6 @@
 ﻿#Edit by Robin
 #2014.12.8
-#快速排序的实现
+#快速排序的实现方法
 
 #挖坑方法
 def quicksort(A):
