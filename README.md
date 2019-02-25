@@ -1,25 +1,8 @@
-# 各种基本算法的简单实现  
-主要实现了各种基本的算法.
 
-## 分类
-### 单链表
-- 建立，插入，修改，删除，逆置   
 
-### 排序
-- 快速排序
-
-### Leetcode
+## Leetcode-Python
 -
 
 
 
 
----
-# Realization of basic algorithms
-In this projection I realized some basic algorithms mainly in C.
-## Categories
-### linknode
-- estabilish, insert, modify, delete, reverse
-
-### sort
-- quick sort
